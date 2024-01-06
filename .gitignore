@@ -361,3 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/WindowsFormsApp1/borrowBook.cs
+/WindowsFormsApp1/borrowBook.Designer.cs
+/WindowsFormsApp1/borrowBook.resx
