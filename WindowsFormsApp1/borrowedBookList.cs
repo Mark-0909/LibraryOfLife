@@ -10,11 +10,12 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApp1
 {
-    public partial class memberHistoryLayout : UserControl
+    public partial class borrowedBookList : UserControl
     {
-        public memberHistoryLayout()
+        public borrowedBookList()
         {
             InitializeComponent();
+            label3.Hide();  
         }
     }
 }

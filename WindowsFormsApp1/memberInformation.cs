@@ -12,7 +12,8 @@ namespace WindowsFormsApp1
     public partial class memberInformation : UserControl
     {
         string pdfFilePath;
-        
+        borrowBook BorrowBook;
+        memberBorrow memberBorrow;
         public Label Label1
         {
             get { return label9; }
@@ -59,19 +60,9 @@ namespace WindowsFormsApp1
         public memberInformation()
         {
             InitializeComponent();
-            labelId = label9;
-            labelName = label10;
-            labelAge = label11;
-            labelAddress = label12;
-            labelPhone = label13;
-            labelEmail = label14;
+            
 
-            Controls.Add(labelId);
-            Controls.Add(labelAge);
-            Controls.Add(labelName);
-            Controls.Add(labelAddress);
-            Controls.Add(labelPhone);
-            Controls.Add(labelEmail);
+
         }
 
         public memberInformation(string memberID, string firstName, string lastName, string mi, int age, string address, string contactNumber, string emailAddress)
@@ -79,15 +70,15 @@ namespace WindowsFormsApp1
         {
             DisplayMemberDetails(memberID, firstName, lastName, mi, age, address, contactNumber, emailAddress);
         }
-
+        
         public void DisplayMemberDetails(string memberID, string firstName, string lastName, string mi, int age, string address, string contactNumber, string emailAddress)
         {
-            labelId.Text = $"{memberID}";
-            labelName.Text = $"{lastName}, {firstName} {mi}";
-            labelAge.Text = $"{age}";
-            labelAddress.Text = $"{address}";
-            labelPhone.Text = $"{contactNumber}";
-            labelEmail.Text = $"{emailAddress}";
+            label9.Text = $"{memberID}";
+            label10.Text = $"{lastName}, {firstName} {mi}";
+            label11.Text = $"{age}";
+            label12.Text = $"{address}";
+            label13.Text = $"{contactNumber}";
+            label14.Text = $"{emailAddress}";
             FN = $"{firstName}";
             LN = $"{lastName}";
             MI = $"{mi}";
@@ -95,9 +86,11 @@ namespace WindowsFormsApp1
 
         private void button1_Click(object sender, EventArgs e)
         {
-            OpenBorrowForm(sender,e);
+            OpenBorrowForm(sender, e);
+
             
         }
+
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -109,24 +102,28 @@ namespace WindowsFormsApp1
         {
             if (!isPopUpFormOpen)
             {
-                borrowBook borrow = new borrowBook();
-
+                // Create a reference to the existing instance of borrowBook
+                BorrowBook = new borrowBook();
                 
+                // Set the memberID on the existing instance
+                BorrowBook.SetmemberID(label9.Text);
+                
+
 
                 this.FindForm().Enabled = false;
 
                 isPopUpFormOpen = true;
-                
 
-                borrow.FormClosed += (s, args) =>
+                BorrowBook.FormClosed += (s, args) =>
                 {
                     this.FindForm().Enabled = true;
                     isPopUpFormOpen = false;
                 };
 
-                borrow.ShowDialog();
+                BorrowBook.ShowDialog();
             }
         }
+
 
         private void OpenEditForm(object sender, EventArgs e)
         {
@@ -157,7 +154,7 @@ namespace WindowsFormsApp1
                 editMember.ShowDialog();
             }
         }
-        // ... (your existing code)
+        
 
         private void button4_Click(object sender, EventArgs e)
         {
@@ -171,7 +168,7 @@ namespace WindowsFormsApp1
                 {
                     // If the PDF file already exists, ask the user if they want to replace it
                     DialogResult result = MessageBox.Show("The PDF file already exists. Do you want to replace it?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
+            
                     if (result == DialogResult.No)
                     {
                         return; // User chose not to replace the existing file
@@ -308,8 +305,8 @@ namespace WindowsFormsApp1
             canvas.BeginText();
             canvas.SetFontAndSize(font1.BaseFont, font1.Size);
             canvas.SetColorFill(BaseColor.BLACK);
-            canvas.SetTextMatrix(35, 30);
-            canvas.ShowText(labelEmail.Text);
+            canvas.SetTextMatrix(35, 27);
+            canvas.ShowText(labelAddress.Text);
             canvas.EndText();
 
             canvas.BeginText();
@@ -323,7 +320,7 @@ namespace WindowsFormsApp1
             canvas.SetFontAndSize(font1.BaseFont, font1.Size);
             canvas.SetColorFill(BaseColor.BLACK);
             canvas.SetTextMatrix(35, 55);
-            canvas.ShowText(labelAddress.Text);
+            canvas.ShowText(labelEmail.Text);
             canvas.EndText();
         }
 

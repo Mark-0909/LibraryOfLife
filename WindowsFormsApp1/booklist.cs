@@ -23,6 +23,37 @@ namespace WindowsFormsApp1
 
         public void DisplayBooks()
         {
+            string constring = "datasource=localhost;port=3306;username=root;password=;database=library_of_life";
+
+            using (MySqlConnection connection = new MySqlConnection(constring))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "select * from books";
+                    MySqlCommand cmdDatabase = new MySqlCommand(query, connection);
+                    MySqlDataReader reader = cmdDatabase.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+
+                        books bookControl = new books(
+                            reader["Book_Name"].ToString(),
+                            reader["Book_Id"].ToString(),
+                            reader["Book_Author"].ToString(),
+                            reader["Book_Location"].ToString(),
+                            reader["Book_Stocks"].ToString(),
+                            (byte[])reader["Book_Image"]
+                        );
+
+
+                        flowLayoutPanel1.Controls.Add(bookControl);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error: {ex.Message}");
+                }
 
             }
         }
@@ -87,7 +118,7 @@ namespace WindowsFormsApp1
         {
             string constring = "datasource=localhost;port=3306;username=root;password=;database=library_of_life";
             string searchTerm = textBox1.Text.Trim();
-
+            
             using (MySqlConnection connection = new MySqlConnection(constring))
             {
                 try
@@ -134,7 +165,7 @@ namespace WindowsFormsApp1
         {
             string constring = "datasource=localhost;port=3306;username=root;password=;database=library_of_life";
             string searchTerm = comboBox1.Text.Trim();
-
+            
             using (MySqlConnection connection = new MySqlConnection(constring))
             {
                 try

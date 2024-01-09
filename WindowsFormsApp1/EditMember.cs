@@ -89,7 +89,7 @@ namespace WindowsFormsApp1
                 memberInfoDisplay.MI = TextBox3.Text;
 
                 // Update the labels in the memberInformation class
-                
+
 
                 memberInfoDisplay.labelName.Text = $"{memberInfoDisplay.LN}, {memberInfoDisplay.FN} {memberInfoDisplay.MI}";
                 memberInfoDisplay.labelAge.Text = memberInfoDisplay.Label3.Text;

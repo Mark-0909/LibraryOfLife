@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿// UserControl3
+using MySql.Data.MySqlClient;
 using System;
 using System.Linq;
 using System.Reflection.Emit;
@@ -13,7 +14,7 @@ namespace WindowsFormsApp1
         public memberBorrow memberBorrow = new memberBorrow();
         public memberHistory memberHistory = new memberHistory();
 
-        borrowBook borrowBook = new borrowBook();   
+        borrowBook borrowBook = new borrowBook();
 
         public Panel Panel2
         {
@@ -25,12 +26,15 @@ namespace WindowsFormsApp1
             get { return textBox1; }
             set { textBox1 = value; }
         }
+        public Button Button5
+        {
+            get { return button5; }
+            set { button5 = value; }
+        }
         public UserControl3()
         {
             InitializeComponent();
             this.panel1.BringToFront();
-            
-            
         }
 
         private void button1_Click_1(object sender, EventArgs e)
@@ -109,7 +113,6 @@ namespace WindowsFormsApp1
 
         public void FetchMemberData(string memberId)
         {
-            // Add a debug statement to check if the method is being called
             Console.WriteLine($"Fetching data for member ID: {memberId}");
             string constring = "datasource=localhost;port=3306;username=root;password=;database=library_of_life";
 
@@ -119,17 +122,14 @@ namespace WindowsFormsApp1
                 {
                     connection.Open();
 
-                    // Extract the input ID from the TextBox
                     string inputID = memberId.Trim();
 
-                    // Check if the input ID has exactly 9 digits
                     if (inputID.Length != 9 || !int.TryParse(inputID, out int _))
                     {
                         MessageBox.Show("Invalid input ID. Please enter a valid 9-digit ID.");
                         return;
                     }
 
-                    // Extract the first 4 digits from the input ID
                     int registrationYear;
                     if (!int.TryParse(inputID.Substring(0, 4), out registrationYear))
                     {
@@ -137,7 +137,6 @@ namespace WindowsFormsApp1
                         return;
                     }
 
-                    // Extract the numbers after the first 4 digits and convert to int
                     int actualMemberID;
                     if (!int.TryParse(inputID.Substring(4), out actualMemberID))
                     {
@@ -145,7 +144,6 @@ namespace WindowsFormsApp1
                         return;
                     }
 
-                    // Query the database based on both conditions
                     string query = "SELECT * FROM members WHERE Registration_Year = @registrationYear AND ID = @actualMemberID";
                     MySqlCommand cmdDatabase = new MySqlCommand(query, connection);
                     cmdDatabase.Parameters.AddWithValue("@registrationYear", registrationYear);
@@ -166,29 +164,15 @@ namespace WindowsFormsApp1
 
                             MessageBox.Show($"Record found for Registration Year: {registrationYear}, Member ID: {memberID}");
 
-                            // Dispose old controls
-                            memberInfoControl.Dispose();
-                            memberBorrow.Dispose();
-                            memberHistory.Dispose();
+                            memberInfoControl?.Dispose();
+                            memberBorrow?.Dispose();
+                            memberHistory?.Dispose();
 
-                            // Recreate controls
                             memberInfoControl = new memberInformation(memberID, firstName, lastName, mi, age, address, contactNumber, emailAddress);
-                            
                             memberBorrow = new memberBorrow();
-                            memberHistory = new memberHistory();
 
-                            // Add controls to the form
                             this.Controls.Add(memberInfoControl);
                             this.Controls.Add(memberBorrow);
-                            this.Controls.Add(memberHistory);
-
-                            // Set properties for controls
-                            memberInfoControl.BackColor = System.Drawing.Color.White;
-                            memberInfoControl.Location = new System.Drawing.Point(3, 100);
-                            memberInfoControl.Name = "memberInformation1";
-                            memberInfoControl.Size = new System.Drawing.Size(2080, 1029);
-                            memberInfoControl.TabIndex = 5;
-                            panel1.Visible = false;
 
                             memberBorrow.BackColor = System.Drawing.Color.White;
                             memberBorrow.Location = new System.Drawing.Point(3, 85);
@@ -196,16 +180,18 @@ namespace WindowsFormsApp1
                             memberBorrow.Size = new System.Drawing.Size(2080, 1029);
                             memberBorrow.TabIndex = 5;
 
-                            memberHistory.BackColor = System.Drawing.Color.White;
-                            memberHistory.Location = new System.Drawing.Point(3, 85);
-                            memberHistory.Name = "memberInformation1";
-                            memberHistory.Size = new System.Drawing.Size(2080, 1029);
-                            memberHistory.TabIndex = 5;
+                            addMemberHistory();
 
-                            // Set visibility
+                            memberBorrow.UpdateMemberID(memberID);
+
+                            memberInfoControl.BackColor = System.Drawing.Color.White;
+                            memberInfoControl.Location = new System.Drawing.Point(3, 100);
+                            memberInfoControl.Name = "memberInformation1";
+                            memberInfoControl.Size = new System.Drawing.Size(2080, 1029);
+                            memberInfoControl.TabIndex = 5;
+                            panel1.Visible = false;
+
                             memberInfoControl.BringToFront();
-                            memberBorrow.Visible = false;
-                            memberHistory.Visible = false;
                             button5.BringToFront();
                         }
                         else
@@ -220,10 +206,38 @@ namespace WindowsFormsApp1
                 }
             }
         }
+    
+
+
+
+public void AddMemberBorrow()
+        {
+            memberBorrow = new memberBorrow();
+            this.Controls.Add(memberBorrow);
+
+            memberBorrow.BackColor = System.Drawing.Color.White;
+            memberBorrow.Location = new System.Drawing.Point(3, 85);
+            memberBorrow.Name = "memberInformation1";
+            memberBorrow.Size = new System.Drawing.Size(2080, 1029);
+            memberBorrow.TabIndex = 5;
+        }
+
+        public void addMemberHistory()
+        {
+            memberHistory = new memberHistory();
+            this.Controls.Add(memberHistory);
+
+            memberHistory.BackColor = System.Drawing.Color.White;
+            memberHistory.Location = new System.Drawing.Point(3, 85);
+            memberHistory.Name = "memberInformation1";
+            memberHistory.Size = new System.Drawing.Size(2080, 1029);
+            memberHistory.TabIndex = 5;
+        }
 
         private void button4_Click(object sender, EventArgs e)
         {
             FetchMemberData(textBox1.Text);
+            memberBorrow.getMemberID(textBox1.Text);
         }
 
 
@@ -255,12 +269,29 @@ namespace WindowsFormsApp1
             this.textBox1.Clear();
         }
 
-        
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        public void refreshControls()
         {
+            if (memberInfoControl != null && !memberInfoControl.IsDisposed &&
+                memberBorrow != null && !memberBorrow.IsDisposed &&
+                memberHistory != null && !memberHistory.IsDisposed)
+            {
+                // Dispose old controls
+                memberInfoControl.Dispose();
+                memberBorrow.Dispose();
+                memberHistory.Dispose();
 
+                // Set panel1 to be visible
+                panel1.Visible = true;
+
+                // Bring panel1 to the front
+                panel1.BringToFront();
+
+                // Clear textBox1
+                textBox1.Clear();
+            }
         }
+
+
     }
 }
 

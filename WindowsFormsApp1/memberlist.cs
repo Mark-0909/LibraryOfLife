@@ -8,18 +8,13 @@ namespace WindowsFormsApp1
     {
         public FlowLayoutPanel MemberFlowLayoutPanel => flowLayoutPanel1;
         bool isPopUpFormOpen = false;
+
         public memberlist()
         {
             InitializeComponent();
             DisplayMembers();
-
-            
         }
 
-
-
-
-        
         public void refreshMember()
         {
             flowLayoutPanel1.Controls.Clear();
@@ -47,7 +42,7 @@ namespace WindowsFormsApp1
                         string memberMI = reader["MI"].ToString();
                         string year = reader["Registration_Year"].ToString();
 
-                        string memberID; // Declare memberID outside the if-else blocks
+                        string memberID;
 
                         if (ID.Length == 3)
                         {
@@ -76,37 +71,25 @@ namespace WindowsFormsApp1
             }
         }
 
-
         private void button3_Click(object sender, EventArgs e)
         {
             OpenAddingForm(sender, e);
         }
+
         private void OpenAddingForm(object sender, EventArgs e)
         {
-
-
-
             if (!isPopUpFormOpen)
             {
-                // Open your pop-up form here
                 AddMember popUpForm = new AddMember();
-
-                // Disable the main form
                 this.FindForm().Enabled = false;
-                
+
                 isPopUpFormOpen = true;
 
-
-
-
-                // Subscribe to the FormClosed event of the pop-up form
                 popUpForm.FormClosed += (s, args) =>
                 {
-                    // Enable the main form when the pop-up form is closed
                     this.FindForm().Enabled = true;
                     isPopUpFormOpen = false;
                     refreshControl(sender, args);
-                    
                 };
 
                 popUpForm.ShowDialog();
@@ -117,6 +100,7 @@ namespace WindowsFormsApp1
         {
             refreshControl(sender, e);
         }
+
         public void refreshControl(object sender, EventArgs e)
         {
             flowLayoutPanel1.Controls.Clear();
@@ -125,7 +109,7 @@ namespace WindowsFormsApp1
 
         private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {
-
+            // Handle Paint event
         }
 
         public void searchBooks()
@@ -139,16 +123,13 @@ namespace WindowsFormsApp1
                 {
                     connection.Open();
 
-                    // Move the parameter addition before executing the query
                     string query = "SELECT * FROM members WHERE First_Name LIKE @SearchTerm OR Last_Name LIKE @SearchTerm OR MI LIKE @SearchTerm OR ID LIKE @SearchTerm";
 
                     MySqlCommand cmdDatabase = new MySqlCommand(query, connection);
                     cmdDatabase.Parameters.AddWithValue("@SearchTerm", $"%{searchTerm}%");
 
-                    // Execute the query after adding parameters
                     MySqlDataReader reader = cmdDatabase.ExecuteReader();
 
-                    // Clear controls before adding new ones
                     flowLayoutPanel1.Controls.Clear();
 
                     while (reader.Read())
@@ -159,7 +140,7 @@ namespace WindowsFormsApp1
                         string memberMI = reader["MI"].ToString();
                         string year = reader["Registration_Year"].ToString();
 
-                        string memberID; // Declare memberID outside the if-else blocks
+                        string memberID;
 
                         if (ID.Length == 3)
                         {
@@ -193,5 +174,4 @@ namespace WindowsFormsApp1
             searchBooks();
         }
     }
-
 }

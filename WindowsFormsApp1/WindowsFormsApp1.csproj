@@ -189,6 +189,18 @@
     <Compile Include="borrowed.Designer.cs">
       <DependentUpon>borrowed.cs</DependentUpon>
     </Compile>
+    <Compile Include="borrowedBookList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="borrowedBookList.Designer.cs">
+      <DependentUpon>borrowedBookList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="dropDownBooklist.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="dropDownBooklist.Designer.cs">
+      <DependentUpon>dropDownBooklist.cs</DependentUpon>
+    </Compile>
     <Compile Include="editBook.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -231,11 +243,11 @@
     <Compile Include="memberBorrow.Designer.cs">
       <DependentUpon>memberBorrow.cs</DependentUpon>
     </Compile>
-    <Compile Include="memberHistoryLayout.cs">
+    <Compile Include="memberBorrowLayout.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="memberHistoryLayout.Designer.cs">
-      <DependentUpon>memberHistoryLayout.cs</DependentUpon>
+    <Compile Include="memberBorrowLayout.Designer.cs">
+      <DependentUpon>memberBorrowLayout.cs</DependentUpon>
     </Compile>
     <Compile Include="memberInformation.cs">
       <SubType>UserControl</SubType>
@@ -302,6 +314,12 @@
     <EmbeddedResource Include="borrowed.resx">
       <DependentUpon>borrowed.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="borrowedBookList.resx">
+      <DependentUpon>borrowedBookList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dropDownBooklist.resx">
+      <DependentUpon>dropDownBooklist.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="editBook.resx">
       <DependentUpon>editBook.cs</DependentUpon>
     </EmbeddedResource>
@@ -323,8 +341,8 @@
     <EmbeddedResource Include="memberBorrow.resx">
       <DependentUpon>memberBorrow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="memberHistoryLayout.resx">
-      <DependentUpon>memberHistoryLayout.cs</DependentUpon>
+    <EmbeddedResource Include="memberBorrowLayout.resx">
+      <DependentUpon>memberBorrowLayout.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="memberInformation.resx">
       <DependentUpon>memberInformation.cs</DependentUpon>

@@ -35,10 +35,10 @@ namespace WindowsFormsApp1
         {
             this.borrowBook = borrowBook;  // Initialize borrowBook
             SetBookData(bookName, imageData);
-
+        
             // Set the BOOKID to the textBox1
             BOOKID = bookID.ToString();
-            
+
         }
 
 
@@ -54,13 +54,14 @@ namespace WindowsFormsApp1
         public void SetBookData(string bookName, byte[] imageData)
         {
             label1.Text = bookName;
-            
+       
 
 
             Image loadedImage = ByteArrayToImage(imageData);
 
 
             pictureBox1.Image = loadedImage;
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -70,7 +71,7 @@ namespace WindowsFormsApp1
             if (int.TryParse(BOOKID, out removedBookID))
             {
                 int indexToRemove = borrowBook.bookList.IndexOf(removedBookID);
-
+        
                 if (indexToRemove >= 0)
                 {
                     // Remove the corresponding book ID and remark

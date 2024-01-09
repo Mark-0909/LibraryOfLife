@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,12 +15,19 @@ namespace WindowsFormsApp1
     public partial class Library : Form
     {
         private UserControl currentActiveControl;
-        member memberControl;
+        private member memberControl;
+
+        
+        
+
         public Library()
         {
             InitializeComponent();
         }
+        private string MemberID;
+        
 
+        
         private void trial_Load(object sender, EventArgs e)
         {
 
@@ -134,10 +142,17 @@ namespace WindowsFormsApp1
             Environment.Exit(0);
 
         }
-        
 
+        public void ShowUserControl1(string memberID)
+        {
+            MemberID = memberID;  // Set the MemberID field
+            clickedButton(button3, EventArgs.Empty);
+            userControl31.BringToFront();
+            userControl31.refreshControls();
+            userControl31.TextBox1.Text = MemberID.ToString();
+            
+        }
 
-       
 
     }
 }

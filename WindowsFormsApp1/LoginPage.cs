@@ -1,22 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using MySql.Data.MySqlClient;
+
+// ... (Your using directives and namespace declaration remain unchanged)
 
 namespace WindowsFormsApp1
 {
     public partial class LoginPage : Form
     {
-        private Thread th;
-
         public LoginPage()
         {
             InitializeComponent();
@@ -32,7 +25,6 @@ namespace WindowsFormsApp1
             string username = textBox1.Text;
             string password = textBox2.Text;
 
-            // Replace the connection string with your actual database connection string
             string connectionString = "datasource=localhost;port=3306;username=root;password=;database=library_of_life";
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
@@ -41,9 +33,10 @@ namespace WindowsFormsApp1
                 {
                     connection.Open();
 
-                    // Replace "admininfo" with your actual table name
-                    string query = $"SELECT * FROM admininfo WHERE Admin_Username = '{username}' AND Admin_Password = '{password}'";
+                    string query = "SELECT * FROM admininfo WHERE Admin_Username = @Username AND Admin_Password = @Password";
                     MySqlCommand command = new MySqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@Username", username);
+                    command.Parameters.AddWithValue("@Password", password);
 
                     MySqlDataReader reader = command.ExecuteReader();
 
@@ -52,11 +45,8 @@ namespace WindowsFormsApp1
                         MessageBox.Show("Login Successful!");
                         this.Hide();
                         Library form2 = new Library();
+                        form2.FormClosed += (s, args) => this.Close(); // Close LoginPage when Library form is closed
                         form2.Show();
-                        th = new Thread(openNewForm);
-                        th.SetApartmentState(ApartmentState.STA);
-                        th.Start();
-                        this.Close();
                     }
                     else
                     {
@@ -65,14 +55,9 @@ namespace WindowsFormsApp1
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Error: {ex.Message}");
+                    MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-        }
-
-        private void openNewForm()
-        {
-            Application.Run(new Library());
         }
 
         private void label3_Click(object sender, EventArgs e)
@@ -84,14 +69,15 @@ namespace WindowsFormsApp1
         {
             // Additional actions when the username textbox changes
         }
+
         private void Login_Load(object sender, EventArgs e)
         {
-
+            // Additional actions on form load
         }
 
         private void textBox1_TextChanged_1(object sender, EventArgs e)
         {
-
+            // Additional actions when the username textbox changes
         }
     }
 }

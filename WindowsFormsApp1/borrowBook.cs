@@ -20,6 +20,8 @@ namespace WindowsFormsApp1
         private int displayedBooksCount = 0;
         borrowed borrowed = new borrowed();
         memberInformation memberInformation = new memberInformation();
+        private string MemberID;
+        booklist booklist = new booklist();
         public FlowLayoutPanel FlowLayoutPanel1
         {
             get { return flowLayoutPanel1; }
@@ -33,6 +35,7 @@ namespace WindowsFormsApp1
         public borrowBook()
         {
             InitializeComponent();
+            textBox2.Text = "7";
         }
 
         private void borrowBook_Load(object sender, EventArgs e)
@@ -59,6 +62,7 @@ namespace WindowsFormsApp1
             
             // Show the book list with remarks
             ShowBookList();
+            saveBorrowedBook();
         }
 
         private void ShowBookList()
@@ -152,6 +156,25 @@ namespace WindowsFormsApp1
 
 
 
+        }
+
+
+        public void DecrementDisplayedBooksCount()
+        {
+            displayedBooksCount--;
+
+            if (displayedBooksCount < 5)
+            {
+                button1.Enabled = true;
+            }
+        }
+
+
+        public void SetmemberID(string memberID)
+        {
+            MemberID = memberID;
+            
+        }
 
         public void saveBorrowedBook()
         {
@@ -162,25 +185,23 @@ namespace WindowsFormsApp1
                 try
                 {
                     connection.Open();
-
-                    // Generate a unique 9-digit reference ID
                     string referenceID = GenerateUniqueReferenceID(connection);
 
-                    // Use the MemberID set by SetmemberID method
-                    memberHistoryLayout borrowedBook = new memberHistoryLayout(int.Parse(MemberID), int.Parse(referenceID));
+                    // Insert into borrowedbook table
+                    string borrowBookQuery = "INSERT INTO borrowedbook (member_ID, `Reference_ID`) VALUES (@MemberID, @ReferenceID)";
+                    using (MySqlCommand cmdBorrowBook = new MySqlCommand(borrowBookQuery, connection))
+                    {
+                        // Assuming MemberID is a property or variable in your borrowBook class
+                        cmdBorrowBook.Parameters.AddWithValue("@MemberID", MemberID);
 
-                    // Insert data into the 'booklist' table
+                        // Assuming ReferenceID is a property or variable in your borrowBook class
+                        cmdBorrowBook.Parameters.AddWithValue("@ReferenceID", referenceID);
+
+                        cmdBorrowBook.ExecuteNonQuery();
+                    }
+
+                    // Insert into borrowlist table
                     InsertBookList(connection, referenceID);
-
-                    string query = "INSERT INTO borrowedbook (member_ID, `Reference_ID`) VALUES (@MemberID, @ReferenceID)";
-
-                    MySqlCommand cmdDatabase = new MySqlCommand(query, connection);
-
-                    // Add parameters to the query
-                    cmdDatabase.Parameters.AddWithValue("@MemberID", borrowedBook.MemberID);
-                    cmdDatabase.Parameters.AddWithValue("@ReferenceID", borrowedBook.ReferenceID);
-
-                    cmdDatabase.ExecuteNonQuery();
 
                     MessageBox.Show("Borrowed book saved successfully to the database.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -193,10 +214,41 @@ namespace WindowsFormsApp1
 
 
 
+        private void InsertBookList(MySqlConnection connection, string referenceID)
+        {
+            string insertQuery = "INSERT INTO borrowlist (Reference_ID, Book_List, Book_Remarks, Borrowed_Date, Return_Date, Status) VALUES (@ReferenceID, @BookList, @BookRemarks, @BorrowedDate, @ReturnDate, @Status)";
 
+            using (MySqlCommand cmdDatabase = new MySqlCommand(insertQuery, connection))
+            {
+                for (int i = 0; i < bookList.Count; i++)
+                {
+                    cmdDatabase.Parameters.Clear();
+                    cmdDatabase.Parameters.AddWithValue("@ReferenceID", referenceID);
+                    cmdDatabase.Parameters.AddWithValue("@BookList", bookList[i]);
+                    cmdDatabase.Parameters.AddWithValue("@BookRemarks", i < remarkList.Count ? remarkList[i] : "No remarks");
 
+                    // Set Borrowed_Date to the current date
+                    cmdDatabase.Parameters.AddWithValue("@BorrowedDate", DateTime.Now.ToString("yyyy-MM-dd"));
+                    int retdate = Convert.ToInt32(textBox2.Text);
 
+                    // Set Return_Date to 7 days from the current date
+                    DateTime returnDate = DateTime.Now.AddDays(retdate);
+                    cmdDatabase.Parameters.AddWithValue("@ReturnDate", returnDate.ToString("yyyy-MM-dd"));
 
+                    // Set Status to "Borrowed"
+                    cmdDatabase.Parameters.AddWithValue("@Status", "Borrowed");
+
+                    cmdDatabase.ExecuteNonQuery();
+
+                    // Decrement Book_Stocks in the books table
+                    DecrementBookStocks(connection, bookList[i]);
+                }
+            }
+        }
+
+        private void DecrementBookStocks(MySqlConnection connection, int bookID)
+        {
+            string decrementQuery = "UPDATE books SET Book_Stocks = Book_Stocks - 1 WHERE Book_Id = @BookID";
 
             using (MySqlCommand cmdDecrement = new MySqlCommand(decrementQuery, connection))
             {
@@ -210,20 +262,38 @@ namespace WindowsFormsApp1
 
         private string GenerateUniqueReferenceID(MySqlConnection connection)
         {
-            displayedBooksCount--;
+            Random random = new Random();
+            string referenceID;
 
-            if (displayedBooksCount < 5)
+            // Generate a unique 9-digit reference ID
+            do
             {
-                button1.Enabled = true;
+                referenceID = random.Next(100000000, 1000000000).ToString();
+            }
+            while (IsReferenceIDDuplicate(referenceID, connection));
+
+            return referenceID;
+        }
+
+        private bool IsReferenceIDDuplicate(string referenceID, MySqlConnection connection)
+        {
+            string query = "SELECT Reference_ID FROM borrowedbook WHERE Reference_ID = @ReferenceID";
+            using (MySqlCommand cmdDatabase = new MySqlCommand(query, connection))
+            {
+                cmdDatabase.Parameters.AddWithValue("@ReferenceID", referenceID);
+
+                using (MySqlDataReader reader = cmdDatabase.ExecuteReader())
+                {
+                    return reader.HasRows;
+                }
             }
         }
 
-        
 
 
 
-            
-        
+
+
 
 
 

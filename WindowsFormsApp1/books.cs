@@ -56,6 +56,7 @@ namespace WindowsFormsApp1
         {
             SetBookData(bookName, bookId, author, location, stocks, imageData);
         }
+        
 
 
         private Image ByteArrayToImage(byte[] byteArray)
@@ -74,7 +75,7 @@ namespace WindowsFormsApp1
             labelAuthor.Text = author;
             labelLocation.Text = location;
             labelStocks.Text = stocks;
-
+        
             Image loadedImage = ByteArrayToImage(imageData);
 
             pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -87,6 +88,11 @@ namespace WindowsFormsApp1
         }
 
         private void books_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click_1(object sender, EventArgs e)
         {
 
         }
@@ -122,7 +128,7 @@ namespace WindowsFormsApp1
                 popUpForm.Button2.BringToFront();
 
                 // Set the genre in the pop-up form
-                popUpForm.ComboBox1.Text = GetGenre(); // Make sure GetGenre returns a valid value
+                // Make sure GetGenre returns a valid value
 
                 // Subscribe to the FormClosed event of the pop-up form
                 popUpForm.FormClosed += (s, args) =>

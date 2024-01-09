@@ -169,7 +169,7 @@ namespace WindowsFormsApp1
                 using (MySqlConnection conDatabase = new MySqlConnection(constring))
                 using (MySqlCommand updateCommand = new MySqlCommand(updateQuery, conDatabase))
                 {
-
+            
                     // Add parameters
                     updateCommand.Parameters.AddWithValue("@BookId", label7.Text); // Ensure Book_Id is included in the WHERE clause
                     updateCommand.Parameters.AddWithValue("@BookName", this.textBox1.Text);
@@ -191,7 +191,7 @@ namespace WindowsFormsApp1
                         MessageBox.Show("No changes made or failed to save changes. Please check your input.");
                     }
                 }
-            }
+        }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error: {ex.Message}");
@@ -241,7 +241,7 @@ namespace WindowsFormsApp1
                 insertCommand.Parameters.AddWithValue("@BookGenre", this.comboBox1.Text);
                 insertCommand.Parameters.AddWithValue("@BookImage", ConvertImageToByteArray(pictureBox1.Image)); // Convert image to byte array
                 
-
+            
                 try
                 {
                     conDatabase.Open();
@@ -281,6 +281,11 @@ namespace WindowsFormsApp1
         private void button4_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

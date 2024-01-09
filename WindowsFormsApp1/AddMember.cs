@@ -41,8 +41,7 @@ namespace WindowsFormsApp1
 
             string query = "INSERT INTO library_of_life.members (First_Name, Last_Name, MI, Age, Address, Contact_Number, Email_Address, PDF_FilePath, Registration_Year, Registration_Date) " +
                             "VALUES(@FirstName, @LastName, @MI, @Age, @Address, @ContactNumber, @EmailAddress, @PDFFilePath, @RegistrationYear, @RegistrationDate); SELECT LAST_INSERT_ID();";
-
-            using (MySqlConnection conDatabase = new MySqlConnection(constring))
+                      using (MySqlConnection conDatabase = new MySqlConnection(constring))
             {
                 using (MySqlCommand cmdDatabase = new MySqlCommand(query, conDatabase))
                 {
@@ -64,7 +63,7 @@ namespace WindowsFormsApp1
                         cmdDatabase.Parameters.AddWithValue("@Address", textBox5.Text);
                         cmdDatabase.Parameters.AddWithValue("@ContactNumber", textBox6.Text);
                         cmdDatabase.Parameters.AddWithValue("@EmailAddress", textBox7.Text);
-
+            
                         object result = cmdDatabase.ExecuteScalar();
 
                         if (result != null)
