@@ -31,7 +31,7 @@ namespace WindowsFormsApp1
         }
         public string BOOKID;
         // Modify the constructor to accept the BOOKID
-        public borrowed(borrowBook borrowBook, int bookID, string bookName, byte[] imageData) : this()
+        public borrowed(borrowBook borrowBook, int bookID, string bookName, string imageData) : this()
         {
             this.borrowBook = borrowBook;  // Initialize borrowBook
             SetBookData(bookName, imageData);
@@ -51,16 +51,15 @@ namespace WindowsFormsApp1
         }
 
 
-        public void SetBookData(string bookName, byte[] imageData)
+        public void SetBookData(string bookName, string imageData)
         {
             label1.Text = bookName;
-       
 
 
-            Image loadedImage = ByteArrayToImage(imageData);
 
+            pictureBox1.Image = Image.FromFile(imageData);
 
-            pictureBox1.Image = loadedImage;
+            
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
         }
 

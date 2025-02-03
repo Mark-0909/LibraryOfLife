@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -37,22 +38,26 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel10 = new System.Windows.Forms.Panel();
+            this.label16 = new System.Windows.Forms.Label();
             this.panel14 = new System.Windows.Forms.Panel();
             this.label9 = new System.Windows.Forms.Label();
             this.panel9 = new System.Windows.Forms.Panel();
+            this.label15 = new System.Windows.Forms.Label();
             this.panel13 = new System.Windows.Forms.Panel();
             this.label8 = new System.Windows.Forms.Label();
             this.panel8 = new System.Windows.Forms.Panel();
+            this.label14 = new System.Windows.Forms.Label();
             this.panel12 = new System.Windows.Forms.Panel();
             this.label7 = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.label13 = new System.Windows.Forms.Label();
             this.panel11 = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.label12 = new System.Windows.Forms.Label();
+            this.panel16 = new System.Windows.Forms.Panel();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.label11 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.label17 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.panel15 = new System.Windows.Forms.Panel();
             this.label10 = new System.Windows.Forms.Label();
@@ -76,12 +81,23 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.flowLayoutPanel1);
             this.panel1.Controls.Add(this.panel5);
             this.panel1.Controls.Add(this.panel4);
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(659, 1247);
+            this.panel1.Size = new System.Drawing.Size(653, 1247);
             this.panel1.TabIndex = 0;
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.flowLayoutPanel1.AutoScroll = true;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 144);
+            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(654, 1132);
+            this.flowLayoutPanel1.TabIndex = 3;
             // 
             // panel5
             // 
@@ -91,7 +107,7 @@
             this.panel5.Controls.Add(this.label2);
             this.panel5.Location = new System.Drawing.Point(-1, 75);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(659, 76);
+            this.panel5.Size = new System.Drawing.Size(653, 76);
             this.panel5.TabIndex = 2;
             // 
             // label4
@@ -136,7 +152,7 @@
             this.panel4.Controls.Add(this.label1);
             this.panel4.Location = new System.Drawing.Point(-1, -1);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(659, 76);
+            this.panel4.Size = new System.Drawing.Size(653, 76);
             this.panel4.TabIndex = 1;
             // 
             // label1
@@ -167,11 +183,23 @@
             // panel10
             // 
             this.panel10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel10.Controls.Add(this.label16);
             this.panel10.Controls.Add(this.panel14);
             this.panel10.Location = new System.Drawing.Point(1044, 63);
             this.panel10.Name = "panel10";
             this.panel10.Size = new System.Drawing.Size(356, 259);
             this.panel10.TabIndex = 3;
+            // 
+            // label16
+            // 
+            this.label16.Font = new System.Drawing.Font("Calibri", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Location = new System.Drawing.Point(3, 72);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(339, 186);
+            this.label16.TabIndex = 4;
+            this.label16.Text = "0";
+            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label16.Click += new System.EventHandler(this.label16_Click);
             // 
             // panel14
             // 
@@ -195,11 +223,23 @@
             // panel9
             // 
             this.panel9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel9.Controls.Add(this.label15);
             this.panel9.Controls.Add(this.panel13);
             this.panel9.Location = new System.Drawing.Point(697, 59);
             this.panel9.Name = "panel9";
             this.panel9.Size = new System.Drawing.Size(349, 263);
             this.panel9.TabIndex = 2;
+            // 
+            // label15
+            // 
+            this.label15.Font = new System.Drawing.Font("Calibri", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(5, 75);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(339, 186);
+            this.label15.TabIndex = 3;
+            this.label15.Text = "0";
+            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label15.Click += new System.EventHandler(this.label15_Click);
             // 
             // panel13
             // 
@@ -223,11 +263,23 @@
             // panel8
             // 
             this.panel8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel8.Controls.Add(this.label14);
             this.panel8.Controls.Add(this.panel12);
             this.panel8.Location = new System.Drawing.Point(348, 59);
             this.panel8.Name = "panel8";
             this.panel8.Size = new System.Drawing.Size(350, 263);
             this.panel8.TabIndex = 1;
+            // 
+            // label14
+            // 
+            this.label14.Font = new System.Drawing.Font("Calibri", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(3, 75);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(339, 186);
+            this.label14.TabIndex = 2;
+            this.label14.Text = "0";
+            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label14.Click += new System.EventHandler(this.label14_Click);
             // 
             // panel12
             // 
@@ -251,12 +303,24 @@
             // panel7
             // 
             this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel7.Controls.Add(this.label13);
             this.panel7.Controls.Add(this.panel11);
             this.panel7.Location = new System.Drawing.Point(-1, 59);
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(351, 263);
             this.panel7.TabIndex = 0;
             this.panel7.Paint += new System.Windows.Forms.PaintEventHandler(this.panel7_Paint);
+            // 
+            // label13
+            // 
+            this.label13.Font = new System.Drawing.Font("Calibri", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(3, 75);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(339, 186);
+            this.label13.TabIndex = 1;
+            this.label13.Text = "0";
+            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label13.Click += new System.EventHandler(this.label13_Click);
             // 
             // panel11
             // 
@@ -280,23 +344,19 @@
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel3.Controls.Add(this.label12);
+            this.panel3.Controls.Add(this.panel16);
             this.panel3.Controls.Add(this.comboBox1);
-            this.panel3.Controls.Add(this.label11);
             this.panel3.Location = new System.Drawing.Point(679, 345);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(1398, 902);
             this.panel3.TabIndex = 1;
             // 
-            // label12
+            // panel16
             // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Calibri", 14.14286F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(947, 236);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(103, 41);
-            this.label12.TabIndex = 2;
-            this.label12.Text = "Genre";
+            this.panel16.Location = new System.Drawing.Point(24, 162);
+            this.panel16.Name = "panel16";
+            this.panel16.Size = new System.Drawing.Size(1307, 704);
+            this.panel16.TabIndex = 3;
             // 
             // comboBox1
             // 
@@ -311,26 +371,30 @@
             this.comboBox1.Size = new System.Drawing.Size(271, 48);
             this.comboBox1.TabIndex = 0;
             this.comboBox1.Text = "Today";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Calibri", 14.14286F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(221, 227);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(387, 41);
-            this.label11.TabIndex = 1;
-            this.label11.Text = "Rate of Borrow and Return";
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // panel6
             // 
             this.panel6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.panel6.Controls.Add(this.label17);
             this.panel6.Controls.Add(this.label5);
             this.panel6.Location = new System.Drawing.Point(679, 0);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(1398, 76);
             this.panel6.TabIndex = 2;
             this.panel6.Paint += new System.Windows.Forms.PaintEventHandler(this.panel6_Paint);
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.BackColor = System.Drawing.Color.Transparent;
+            this.label17.Font = new System.Drawing.Font("Calibri", 14.14286F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.ForeColor = System.Drawing.Color.White;
+            this.label17.Location = new System.Drawing.Point(1190, 17);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(198, 41);
+            this.label17.TabIndex = 1;
+            this.label17.Text = "MM/dd/yyyy";
             // 
             // label5
             // 
@@ -396,7 +460,6 @@
             this.panel11.ResumeLayout(false);
             this.panel11.PerformLayout();
             this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
             this.panel15.ResumeLayout(false);
@@ -433,7 +496,12 @@
         private System.Windows.Forms.Panel panel15;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Panel panel16;
     }
 }

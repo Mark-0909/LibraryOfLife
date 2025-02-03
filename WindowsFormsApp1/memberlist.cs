@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 
@@ -13,6 +15,7 @@ namespace WindowsFormsApp1
         {
             InitializeComponent();
             DisplayMembers();
+            label5.Hide();
         }
 
         public void refreshMember()
@@ -30,36 +33,21 @@ namespace WindowsFormsApp1
                 try
                 {
                     connection.Open();
-                    string query = "select * from members";
+                    string query = "select * from members WHERE Status = 'Regular'";
                     MySqlCommand cmdDatabase = new MySqlCommand(query, connection);
                     MySqlDataReader reader = cmdDatabase.ExecuteReader();
 
                     while (reader.Read())
                     {
-                        string ID = reader["ID"].ToString();
+                        string id = reader["Actual_ID"].ToString();  // Use Actual_ID as the member ID
                         string memberLName = reader["Last_Name"].ToString();
                         string memberFName = reader["First_Name"].ToString();
                         string memberMI = reader["MI"].ToString();
                         string year = reader["Registration_Year"].ToString();
 
-                        string memberID;
-
-                        if (ID.Length == 3)
-                        {
-                            memberID = $"{year}00{ID}";
-                        }
-                        else if (ID.Length == 4)
-                        {
-                            memberID = $"{year}0{ID}";
-                        }
-                        else
-                        {
-                            memberID = $"{year}{ID}";
-                        }
-
                         string memFullName = $"{memberLName}, {memberFName} {memberMI}";
 
-                        member memberControl = new member(memberID, memFullName);
+                        member memberControl = new member(id, memFullName);
 
                         MemberFlowLayoutPanel.Controls.Add(memberControl);
                     }
@@ -68,8 +56,13 @@ namespace WindowsFormsApp1
                 {
                     MessageBox.Show($"Error: {ex.Message}");
                 }
+                finally
+                {
+                    connection.Close();
+                }
             }
         }
+
 
         private void button3_Click(object sender, EventArgs e)
         {
@@ -89,7 +82,8 @@ namespace WindowsFormsApp1
                 {
                     this.FindForm().Enabled = true;
                     isPopUpFormOpen = false;
-                    refreshControl(sender, args);
+                    flowLayoutPanel1.Controls.Clear();
+                    refreshMember();
                 };
 
                 popUpForm.ShowDialog();
@@ -98,21 +92,18 @@ namespace WindowsFormsApp1
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            refreshControl(sender, e);
+            flowLayoutPanel1.Controls.Clear();
+            refreshMember();
         }
 
-        public void refreshControl(object sender, EventArgs e)
-        {
-            flowLayoutPanel1.Controls.Clear();
-            DisplayMembers();
-        }
+        
 
         private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {
             // Handle Paint event
         }
 
-        public void searchBooks()
+        public void searchmember()
         {
             string constring = "datasource=localhost;port=3306;username=root;password=;database=library_of_life";
             string searchTerm = textBox1.Text.Trim();
@@ -123,43 +114,30 @@ namespace WindowsFormsApp1
                 {
                     connection.Open();
 
-                    string query = "SELECT * FROM members WHERE First_Name LIKE @SearchTerm OR Last_Name LIKE @SearchTerm OR MI LIKE @SearchTerm OR ID LIKE @SearchTerm";
+                    string query = "SELECT * FROM members WHERE First_Name LIKE @SearchTerm OR Last_Name LIKE @SearchTerm OR MI LIKE @SearchTerm OR Actual_ID LIKE @SearchTerm OR ID LIKE @SearchTerm AND Status = 'Regular'";
 
                     MySqlCommand cmdDatabase = new MySqlCommand(query, connection);
+
+                    // Use parameters to prevent SQL injection
                     cmdDatabase.Parameters.AddWithValue("@SearchTerm", $"%{searchTerm}%");
 
-                    MySqlDataReader reader = cmdDatabase.ExecuteReader();
-
-                    flowLayoutPanel1.Controls.Clear();
-
-                    while (reader.Read())
+                    using (MySqlDataReader reader = cmdDatabase.ExecuteReader())
                     {
-                        string ID = reader["ID"].ToString();
-                        string memberLName = reader["Last_Name"].ToString();
-                        string memberFName = reader["First_Name"].ToString();
-                        string memberMI = reader["MI"].ToString();
-                        string year = reader["Registration_Year"].ToString();
-
-                        string memberID;
-
-                        if (ID.Length == 3)
+                        while (reader.Read())
                         {
-                            memberID = $"{year}00{ID}";
-                        }
-                        else if (ID.Length == 4)
-                        {
-                            memberID = $"{year}0{ID}";
-                        }
-                        else
-                        {
-                            memberID = $"{year}{ID}";
-                        }
+                            string ID = reader["ID"].ToString();
+                            string memberLName = reader["Last_Name"].ToString();
+                            string memberFName = reader["First_Name"].ToString();
+                            string memberMI = reader["MI"].ToString();
+                            string year = reader["Registration_Year"].ToString();
 
-                        string memFullName = $"{memberLName}, {memberFName} {memberMI}";
+                            string id = reader["Actual_ID"].ToString();
+                            string memFullName = $"{memberLName}, {memberFName} {memberMI}";
 
-                        member memberControl = new member(memberID, memFullName);
+                            member memberControl = new member(id, memFullName);
 
-                        MemberFlowLayoutPanel.Controls.Add(memberControl);
+                            MemberFlowLayoutPanel.Controls.Add(memberControl);
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -169,9 +147,69 @@ namespace WindowsFormsApp1
             }
         }
 
+
+
         private void button4_Click(object sender, EventArgs e)
         {
-            searchBooks();
+            flowLayoutPanel1.Controls.Clear();
+            searchmember();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (textBox1.Text == "Search here")
+            {
+                MessageBox.Show("Please enter a valid search term.", "Empty Search", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                flowLayoutPanel1.Controls.Clear();
+                searchmember();
+                label5.Show();
+                label5.Text = $"Search for: {textBox1.Text}";
+                textBox1.Text = "Search here";
+                textBox1.ForeColor = Color.Silver;
+            }
+
+        }
+
+        private void button4_Click_1(object sender, EventArgs e)
+        {
+            flowLayoutPanel1.Controls.Clear();
+            label5.Hide();
+            DisplayMembers();
+        }
+
+        private void textBox1_Enter(object sender, EventArgs e)
+        {
+            if (textBox1.Text == "Search here")
+            {
+                textBox1.Text = "";
+                textBox1.ForeColor = Color.Black;
+            }
+        }
+
+        private void textBox1_Leave(object sender, EventArgs e)
+        {
+            if (textBox1.Text == "")
+            {
+                textBox1.Text = "Search here";
+                textBox1.ForeColor = Color.Silver;
+            }
+        }
+
+        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                flowLayoutPanel1.Controls.Clear();
+                searchmember();
+                label5.Show();
+                label5.Text = $"Search for: {textBox1.Text}";
+                textBox1.Text = "Search here";
+                textBox1.ForeColor = Color.Silver;
+                button2.Focus();
+            }
         }
     }
 }

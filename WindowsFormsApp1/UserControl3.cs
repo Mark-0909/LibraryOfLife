@@ -40,27 +40,30 @@ namespace WindowsFormsApp1
         private void button1_Click_1(object sender, EventArgs e)
         {
             clickedButton(sender, e);
+            memberInfoControl.IsMemberBanned(textBox1.Text);
             memberInfoControl.BringToFront();
-            button5.Visible = true;
-            button5.BringToFront();
             memberBorrow.Visible = false;
             memberHistory.Visible = false;
+            button5.BringToFront();
         }
 
         private void button2_Click_1(object sender, EventArgs e)
         {
             clickedButton(sender, e);
             memberBorrow.Visible = true;
+            memberBorrow.refreshBorrow();
             memberBorrow.BringToFront();
-            button5.Visible = false;
+            button5.BringToFront();
+            
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             clickedButton(sender, e);
             memberHistory.Visible = true;
+            memberHistory.refreshControl();
             memberHistory.BringToFront();
-            button5.Visible = false;
+            button5.BringToFront();
         }
 
         // Button style when clicked
@@ -113,7 +116,7 @@ namespace WindowsFormsApp1
 
         public void FetchMemberData(string memberId)
         {
-            Console.WriteLine($"Fetching data for member ID: {memberId}");
+            
             string constring = "datasource=localhost;port=3306;username=root;password=;database=library_of_life";
 
             using (MySqlConnection connection = new MySqlConnection(constring))
@@ -161,43 +164,53 @@ namespace WindowsFormsApp1
                             string address = reader["Address"].ToString();
                             string contactNumber = reader["Contact_Number"].ToString();
                             string emailAddress = reader["Email_Address"].ToString();
-
-                            MessageBox.Show($"Record found for Registration Year: {registrationYear}, Member ID: {memberID}");
+                            string presentedID = reader["Presented_ID"].ToString() ;
+                            
 
                             memberInfoControl?.Dispose();
                             memberBorrow?.Dispose();
                             memberHistory?.Dispose();
 
-                            memberInfoControl = new memberInformation(memberID, firstName, lastName, mi, age, address, contactNumber, emailAddress);
+                            memberInfoControl = new memberInformation(memberID, firstName, lastName, mi, age, address, contactNumber, emailAddress, presentedID);
+                            memberInfoControl.setmemberID(memberID);
                             memberBorrow = new memberBorrow();
 
                             this.Controls.Add(memberInfoControl);
                             this.Controls.Add(memberBorrow);
 
                             memberBorrow.BackColor = System.Drawing.Color.White;
-                            memberBorrow.Location = new System.Drawing.Point(3, 85);
+                            memberBorrow.Location = new System.Drawing.Point(3, 90);
                             memberBorrow.Name = "memberInformation1";
-                            memberBorrow.Size = new System.Drawing.Size(2080, 1029);
+                            memberBorrow.Size = new System.Drawing.Size(2080, 1050);
                             memberBorrow.TabIndex = 5;
 
-                            addMemberHistory();
+                            memberHistory = new memberHistory(memberID);
+                            this.Controls.Add(memberHistory);
+
+                            memberHistory.BackColor = System.Drawing.Color.White;
+                            memberHistory.Location = new System.Drawing.Point(3, 90);
+                            memberHistory.Name = "memberInformation1";
+                            memberHistory.Size = new System.Drawing.Size(2080, 1050);
+                            memberHistory.TabIndex = 5;
 
                             memberBorrow.UpdateMemberID(memberID);
 
                             memberInfoControl.BackColor = System.Drawing.Color.White;
                             memberInfoControl.Location = new System.Drawing.Point(3, 100);
                             memberInfoControl.Name = "memberInformation1";
-                            memberInfoControl.Size = new System.Drawing.Size(2080, 1029);
+                            memberInfoControl.Size = new System.Drawing.Size(2080, 1050);
                             memberInfoControl.TabIndex = 5;
                             panel1.Visible = false;
 
                             memberInfoControl.BringToFront();
                             button5.BringToFront();
+                            clickedButton(button1, EventArgs.Empty);
                         }
                         else
                         {
                             MessageBox.Show($"No record found for Registration Year: {registrationYear} and Member ID: {actualMemberID}");
                         }
+                        reader.Close();
                     }
                 }
                 catch (Exception ex)
@@ -210,29 +223,7 @@ namespace WindowsFormsApp1
 
 
 
-public void AddMemberBorrow()
-        {
-            memberBorrow = new memberBorrow();
-            this.Controls.Add(memberBorrow);
 
-            memberBorrow.BackColor = System.Drawing.Color.White;
-            memberBorrow.Location = new System.Drawing.Point(3, 85);
-            memberBorrow.Name = "memberInformation1";
-            memberBorrow.Size = new System.Drawing.Size(2080, 1029);
-            memberBorrow.TabIndex = 5;
-        }
-
-        public void addMemberHistory()
-        {
-            memberHistory = new memberHistory();
-            this.Controls.Add(memberHistory);
-
-            memberHistory.BackColor = System.Drawing.Color.White;
-            memberHistory.Location = new System.Drawing.Point(3, 85);
-            memberHistory.Name = "memberInformation1";
-            memberHistory.Size = new System.Drawing.Size(2080, 1029);
-            memberHistory.TabIndex = 5;
-        }
 
         private void button4_Click(object sender, EventArgs e)
         {
@@ -282,12 +273,13 @@ public void AddMemberBorrow()
 
                 // Set panel1 to be visible
                 panel1.Visible = true;
-
+                
                 // Bring panel1 to the front
                 panel1.BringToFront();
 
                 // Clear textBox1
                 textBox1.Clear();
+                clickedButton(button1, EventArgs.Empty);
             }
         }
 

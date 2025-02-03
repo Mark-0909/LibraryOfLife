@@ -36,7 +36,7 @@
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("Calibri", 15.85714F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(-43, 44);
+            this.label1.Location = new System.Drawing.Point(-40, 44);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(500, 45);
             this.label1.TabIndex = 0;
@@ -46,7 +46,7 @@
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("Calibri", 15.85714F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(527, 44);
+            this.label2.Location = new System.Drawing.Point(537, 44);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(700, 45);
             this.label2.TabIndex = 1;
@@ -80,6 +80,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 3, 3, 15);
             this.Name = "member";
             this.Size = new System.Drawing.Size(2000, 134);
+            this.Load += new System.EventHandler(this.member_Load);
             this.ResumeLayout(false);
 
         }

@@ -121,7 +121,6 @@
             this.textBox1.Size = new System.Drawing.Size(442, 55);
             this.textBox1.TabIndex = 1;
             this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            
             // 
             // label1
             // 

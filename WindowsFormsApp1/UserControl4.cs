@@ -44,11 +44,21 @@ namespace WindowsFormsApp1
         private void button1_Click(object sender, EventArgs e)
         {
             clickedButton(sender, e);
+            memberlist1.BringToFront();
+            
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             clickedButton(sender, e);
+            memberBannedList1.BringToFront();
+            
+        }
+
+        public void refreshAll()
+        {
+            memberBannedList1.refreshMember();
+            memberBannedList1.refreshMember();
         }
         private void ApplyButtonStyle(Button button)
         {

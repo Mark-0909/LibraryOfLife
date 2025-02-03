@@ -51,9 +51,9 @@
             this.checkBox1.AutoSize = true;
             this.checkBox1.Location = new System.Drawing.Point(363, 6);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(123, 29);
+            this.checkBox1.Size = new System.Drawing.Size(115, 29);
             this.checkBox1.TabIndex = 3;
-            this.checkBox1.Text = "Damaged";
+            this.checkBox1.Text = "Remarks";
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
@@ -67,7 +67,7 @@
             // 
             // button1
             // 
-            this.button1.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.button1.BackColor = System.Drawing.Color.White;
             this.button1.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.Screenshot_2024_01_03_20100i;
             this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button1.FlatAppearance.BorderColor = System.Drawing.SystemColors.Control;
@@ -92,6 +92,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Honeydew;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.checkBox1);

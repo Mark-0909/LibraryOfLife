@@ -10,6 +10,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace WindowsFormsApp1
 {
@@ -22,6 +23,8 @@ namespace WindowsFormsApp1
         memberInformation memberInformation = new memberInformation();
         private string MemberID;
         booklist booklist = new booklist();
+
+        
         public FlowLayoutPanel FlowLayoutPanel1
         {
             get { return flowLayoutPanel1; }
@@ -36,6 +39,7 @@ namespace WindowsFormsApp1
         {
             InitializeComponent();
             textBox2.Text = "7";
+            radioButton1.Checked = true;
         }
 
         private void borrowBook_Load(object sender, EventArgs e)
@@ -50,6 +54,20 @@ namespace WindowsFormsApp1
 
         private void button2_Click(object sender, EventArgs e)
         {
+            if (flowLayoutPanel1.Controls.Count == 0)
+            {
+                MessageBox.Show("The list of books is empty.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+            }
+            else
+            {
+
+                proceedToBorrowusingID();
+            }
+        }
+
+        public void proceedToBorrowusingID()
+        {
             // Clear the remarkList before populating it
             remarkList.Clear();
 
@@ -59,12 +77,11 @@ namespace WindowsFormsApp1
                 string remarks = bookControl.TextBox1.Text;
                 remarkList.Add(remarks);
             }
-            
+
             // Show the book list with remarks
             ShowBookList();
             saveBorrowedBook();
         }
-
         private void ShowBookList()
         {
             StringBuilder bookListText = new StringBuilder("Book List with Remarks:\n");
@@ -77,22 +94,105 @@ namespace WindowsFormsApp1
                 bookListText.AppendLine($"{bookID} - Remarks: {remarks}");
             }
 
-            MessageBox.Show(bookListText.ToString(), "Book List with Remarks", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            
         }
 
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-
-            DisplayBorrowBooks();
+            if (radioButton2.Checked)
+            {
+                countStocks();
+            } else if (radioButton1.Checked)
+            {
+                countStocks2();
+            }
+            
         }
-
-        public void BookList()
+        public void countStocks()
         {
+            string constring = "datasource=localhost;port=3306;username=root;password=;database=library_of_life";
 
+            using (MySqlConnection connection = new MySqlConnection(constring))
+            {
+                try
+                {
+                    connection.Open();
 
+                    int BOOKID = Convert.ToInt32(textBox1.Text);
+                    string query = "SELECT Book_Stocks, Status FROM books WHERE Book_Id = @Bookid";
+                    MySqlCommand cmdDatabase = new MySqlCommand(query, connection);
+                    cmdDatabase.Parameters.AddWithValue("@Bookid", BOOKID);
+
+                    using (MySqlDataReader reader = cmdDatabase.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            
+                            if (reader["Book_Stocks"].ToString() == "0")
+                            {
+                                MessageBox.Show("The book is out of stock.", "Out of Stock", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            } else if (reader["Status"].ToString() == "Phase Out")
+                            {
+                                MessageBox.Show("The book was Phase Out.", "Phase Out", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
+                            else
+                            {
+                                DisplayBorrowBooks(BOOKID);
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error: {ex.Message}");
+                }
+            }
         }
-        public void DisplayBorrowBooks()
+        public void countStocks2()
+        {
+            string constring = "datasource=localhost;port=3306;username=root;password=;database=library_of_life";
+
+            using (MySqlConnection connection = new MySqlConnection(constring))
+            {
+                try
+                {
+                    connection.Open();
+
+                    string bookName = textBox1.Text;
+                    string query = "SELECT Book_Stocks, Book_Id FROM books WHERE Book_Name = @Bookname";
+                    MySqlCommand cmdDatabase = new MySqlCommand(query, connection);
+                    cmdDatabase.Parameters.AddWithValue("@Bookname", bookName);
+
+                    using (MySqlDataReader reader = cmdDatabase.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            int bookID = Convert.ToInt32(reader["Book_Id"]);
+                            if (reader["Book_Stocks"].ToString() == "0")
+                            {
+                                MessageBox.Show("The book is out of stock.", "Out of Stock", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
+                            else
+                            {
+                                DisplayBorrowBooks(bookID);
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Book not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+
+        public void DisplayBorrowBooks(int bookId)
         {
             if (displayedBooksCount >= 5)
             {
@@ -108,27 +208,27 @@ namespace WindowsFormsApp1
                 {
                     connection.Open();
 
-                    int BOOKID = Convert.ToInt32(textBox1.Text);
+                    // Use the bookId parameter instead of converting textBox1.Text
                     string query = "select * from books Where Book_Id = @Bookid";
                     MySqlCommand cmdDatabase = new MySqlCommand(query, connection);
-                    cmdDatabase.Parameters.AddWithValue("@Bookid", BOOKID);
+                    cmdDatabase.Parameters.AddWithValue("@Bookid", bookId);
 
                     using (MySqlDataReader reader = cmdDatabase.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            if (!reader.IsDBNull(reader.GetOrdinal("Book_Name")) && !reader.IsDBNull(reader.GetOrdinal("Book_Image")))
+                            if (!reader.IsDBNull(reader.GetOrdinal("Book_Name")) && !reader.IsDBNull(reader.GetOrdinal("Image_Path")))
                             {
-                                // Pass the BOOKID when creating an instance of borrowed
+                                // Pass the bookId when creating an instance of borrowed
                                 borrowed bookControl = new borrowed(
                                     this,  // Pass the borrowBook instance
-                                    BOOKID,
+                                    bookId,
                                     reader["Book_Name"].ToString(),
-                                    (byte[])reader["Book_Image"]
+                                    reader["Image_Path"].ToString()
                                 );
 
-                                // Add the BOOKID to the bookList
-                                bookList.Add(BOOKID);
+                                // Add the bookId to the bookList
+                                bookList.Add(bookId);
 
                                 // Add an empty remark to the remarkList
                                 remarkList.Add(" ");
@@ -138,7 +238,7 @@ namespace WindowsFormsApp1
                                 textBox1.Clear();
                                 // Increment the displayedBooksCount
                                 displayedBooksCount++;
-            
+
                                 // Disable the button if the maximum limit is reached
                                 if (displayedBooksCount >= 5)
                                 {
@@ -146,6 +246,7 @@ namespace WindowsFormsApp1
                                 }
                             }
                         }
+                        reader.Close();
                     }
                 }
                 catch (Exception ex)
@@ -153,13 +254,15 @@ namespace WindowsFormsApp1
                     MessageBox.Show($"Error: {ex.Message}");
                 }
             }
-
-
-
         }
 
 
-        public void DecrementDisplayedBooksCount()
+
+
+    
+
+
+    public void DecrementDisplayedBooksCount()
         {
             displayedBooksCount--;
 
@@ -186,9 +289,10 @@ namespace WindowsFormsApp1
                 {
                     connection.Open();
                     string referenceID = GenerateUniqueReferenceID(connection);
+                    
 
                     // Insert into borrowedbook table
-                    string borrowBookQuery = "INSERT INTO borrowedbook (member_ID, `Reference_ID`) VALUES (@MemberID, @ReferenceID)";
+                    string borrowBookQuery = "INSERT INTO borrowedbook (member_ID, `Reference_ID`, Borrowed_Date, Return_Date) VALUES (@MemberID, @ReferenceID, @Borrowed, @Return)";
                     using (MySqlCommand cmdBorrowBook = new MySqlCommand(borrowBookQuery, connection))
                     {
                         // Assuming MemberID is a property or variable in your borrowBook class
@@ -196,6 +300,9 @@ namespace WindowsFormsApp1
 
                         // Assuming ReferenceID is a property or variable in your borrowBook class
                         cmdBorrowBook.Parameters.AddWithValue("@ReferenceID", referenceID);
+                        cmdBorrowBook.Parameters.AddWithValue("@Borrowed", DateTime.Now.ToString("MM-dd-yyyy HH:mm:ss"));
+
+                        cmdBorrowBook.Parameters.AddWithValue("@Return", DateTime.Now.AddDays(Convert.ToUInt32(textBox2.Text)).ToString("MM-dd-yyyy HH:mm:ss"));
 
                         cmdBorrowBook.ExecuteNonQuery();
                     }
@@ -203,7 +310,7 @@ namespace WindowsFormsApp1
                     // Insert into borrowlist table
                     InsertBookList(connection, referenceID);
 
-                    MessageBox.Show("Borrowed book saved successfully to the database.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Borrowed book successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {
@@ -216,7 +323,7 @@ namespace WindowsFormsApp1
 
         private void InsertBookList(MySqlConnection connection, string referenceID)
         {
-            string insertQuery = "INSERT INTO borrowlist (Reference_ID, Book_List, Book_Remarks, Borrowed_Date, Return_Date, Status) VALUES (@ReferenceID, @BookList, @BookRemarks, @BorrowedDate, @ReturnDate, @Status)";
+            string insertQuery = "INSERT INTO borrowlist (Reference_ID, Book_List, Book_Remarks, Borrowed_Date, Return_Date, Status, Initial_Status) VALUES (@ReferenceID, @BookList, @BookRemarks, @BorrowedDate, @ReturnDate, @Status, @Initial_Status)";
 
             using (MySqlCommand cmdDatabase = new MySqlCommand(insertQuery, connection))
             {
@@ -228,15 +335,16 @@ namespace WindowsFormsApp1
                     cmdDatabase.Parameters.AddWithValue("@BookRemarks", i < remarkList.Count ? remarkList[i] : "No remarks");
 
                     // Set Borrowed_Date to the current date
-                    cmdDatabase.Parameters.AddWithValue("@BorrowedDate", DateTime.Now.ToString("yyyy-MM-dd"));
+                    cmdDatabase.Parameters.AddWithValue("@BorrowedDate", DateTime.Now.ToString("MM-dd-yyyy"));
                     int retdate = Convert.ToInt32(textBox2.Text);
 
                     // Set Return_Date to 7 days from the current date
                     DateTime returnDate = DateTime.Now.AddDays(retdate);
-                    cmdDatabase.Parameters.AddWithValue("@ReturnDate", returnDate.ToString("yyyy-MM-dd"));
+                    cmdDatabase.Parameters.AddWithValue("@ReturnDate", returnDate.ToString("MM-dd-yyyy"));
 
                     // Set Status to "Borrowed"
                     cmdDatabase.Parameters.AddWithValue("@Status", "Borrowed");
+                    cmdDatabase.Parameters.AddWithValue("@Initial_Status", "Borrowed");
 
                     cmdDatabase.ExecuteNonQuery();
 
@@ -254,6 +362,7 @@ namespace WindowsFormsApp1
             {
                 cmdDecrement.Parameters.AddWithValue("@BookID", bookID);
                 cmdDecrement.ExecuteNonQuery();
+                this.Close();
             }
         }
 
@@ -289,14 +398,36 @@ namespace WindowsFormsApp1
             }
         }
 
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton1.Checked)
+            {
+                radioButton2.Checked = false;
+            }
+        }
 
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton2.Checked)
+            {
+                radioButton1.Checked = false;
+            }
+        }
 
-
-
-
-
-
-
+        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (radioButton2.Checked)
+                {
+                    countStocks();
+                }
+                else if (radioButton1.Checked)
+                {
+                    countStocks2();
+                }
+            }
+        }
     }
 }
 

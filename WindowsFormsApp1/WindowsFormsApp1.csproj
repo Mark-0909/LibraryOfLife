@@ -97,6 +97,9 @@
     <Reference Include="itextsharp, Version=5.5.13.3, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <HintPath>..\packages\iTextSharp.5.5.13.3\lib\itextsharp.dll</HintPath>
     </Reference>
+    <Reference Include="itextsharp.xmlworker, Version=5.5.13.3, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itextsharp.xmlworker.5.5.13.3\lib\itextsharp.xmlworker.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.5.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
@@ -148,6 +151,7 @@
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -159,6 +163,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="adminPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="adminPage.Designer.cs">
+      <DependentUpon>adminPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="allBorrowedBook.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="allBorrowedBook.Designer.cs">
+      <DependentUpon>allBorrowedBook.cs</DependentUpon>
+    </Compile>
     <Compile Include="booklist.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -188,6 +204,102 @@
     </Compile>
     <Compile Include="borrowed.Designer.cs">
       <DependentUpon>borrowed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="allBorrowLayout.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="allBorrowLayout.Designer.cs">
+      <DependentUpon>allBorrowLayout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="dashboardBorrowedBooks.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="dashboardBorrowedBooks.Designer.cs">
+      <DependentUpon>dashboardBorrowedBooks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="bannedMemberPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="bannedMemberPopup.Designer.cs">
+      <DependentUpon>bannedMemberPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="historyBookChangesLayout.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="historyBookChangesLayout.Designer.cs">
+      <DependentUpon>historyBookChangesLayout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="historyBooksLayout.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="historyBooksLayout.Designer.cs">
+      <DependentUpon>historyBooksLayout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="historyMember.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="historyMember.Designer.cs">
+      <DependentUpon>historyMember.cs</DependentUpon>
+    </Compile>
+    <Compile Include="historyBook.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="historyBook.Designer.cs">
+      <DependentUpon>historyBook.cs</DependentUpon>
+    </Compile>
+    <Compile Include="historymemberchangeslayout.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="historymemberchangeslayout.Designer.cs">
+      <DependentUpon>historymemberchangeslayout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="historyMemberLayout.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="historyMemberLayout.Designer.cs">
+      <DependentUpon>historyMemberLayout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="historyReturn.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="historyReturn.Designer.cs">
+      <DependentUpon>historyReturn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="historyreturndisplay.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="historyreturndisplay.Designer.cs">
+      <DependentUpon>historyreturndisplay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="memberBannedList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="memberBannedList.Designer.cs">
+      <DependentUpon>memberBannedList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="returnHistoryLayout.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="returnHistoryLayout.Designer.cs">
+      <DependentUpon>returnHistoryLayout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="memberHistoryLayout.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="memberHistoryLayout.Designer.cs">
+      <DependentUpon>memberHistoryLayout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl5.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControl5.Designer.cs">
+      <DependentUpon>UserControl5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="returnDisplayLayout.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="returnDisplayLayout.Designer.cs">
+      <DependentUpon>returnDisplayLayout.cs</DependentUpon>
     </Compile>
     <Compile Include="borrowedBookList.cs">
       <SubType>UserControl</SubType>
@@ -263,6 +375,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="returnBook.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="returnBook.Designer.cs">
+      <DependentUpon>returnBook.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControl1.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -287,18 +405,38 @@
     <Compile Include="UserControl4.Designer.cs">
       <DependentUpon>UserControl4.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControl5.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControl5.Designer.cs">
-      <DependentUpon>UserControl5.cs</DependentUpon>
-    </Compile>
     <Compile Include="UserControl6.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UserControl6.Designer.cs">
       <DependentUpon>UserControl6.cs</DependentUpon>
     </Compile>
+    <Compile Include="chart.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="chart.Designer.cs">
+      <DependentUpon>chart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="genreorlocation.cs">
+      <SubType>UserControl</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="genreorlocation.Designer.cs">
+      <DependentUpon>genreorlocation.cs</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="violationLayout.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="violationLayout.Designer.cs">
+      <DependentUpon>violationLayout.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="adminPage.resx">
+      <DependentUpon>adminPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="allBorrowedBook.resx">
+      <DependentUpon>allBorrowedBook.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="booklist.resx">
       <DependentUpon>booklist.cs</DependentUpon>
     </EmbeddedResource>
@@ -314,6 +452,57 @@
     <EmbeddedResource Include="borrowed.resx">
       <DependentUpon>borrowed.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="allBorrowLayout.resx">
+      <DependentUpon>allBorrowLayout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dashboardBorrowedBooks.resx">
+      <DependentUpon>dashboardBorrowedBooks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="bannedMemberPopup.resx">
+      <DependentUpon>bannedMemberPopup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="historyBookChangesLayout.resx">
+      <DependentUpon>historyBookChangesLayout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="historyBooksLayout.resx">
+      <DependentUpon>historyBooksLayout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="historyMember.resx">
+      <DependentUpon>historyMember.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="historyBook.resx">
+      <DependentUpon>historyBook.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="historymemberchangeslayout.resx">
+      <DependentUpon>historymemberchangeslayout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="historyMemberLayout.resx">
+      <DependentUpon>historyMemberLayout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="historyReturn.resx">
+      <DependentUpon>historyReturn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="historyreturndisplay.resx">
+      <DependentUpon>historyreturndisplay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoginPage.resx">
+      <DependentUpon>LoginPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="memberBannedList.resx">
+      <DependentUpon>memberBannedList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="returnHistoryLayout.resx">
+      <DependentUpon>returnHistoryLayout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="memberHistoryLayout.resx">
+      <DependentUpon>memberHistoryLayout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControl5.resx">
+      <DependentUpon>UserControl5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="returnDisplayLayout.resx">
+      <DependentUpon>returnDisplayLayout.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="borrowedBookList.resx">
       <DependentUpon>borrowedBookList.cs</DependentUpon>
     </EmbeddedResource>
@@ -328,9 +517,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Library.resx">
       <DependentUpon>Library.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Login.resx">
-      <DependentUpon>LoginPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="member.resx">
       <DependentUpon>member.cs</DependentUpon>
@@ -360,6 +546,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="returnBook.resx">
+      <DependentUpon>returnBook.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControl1.resx">
       <DependentUpon>UserControl1.cs</DependentUpon>
     </EmbeddedResource>
@@ -372,11 +561,18 @@
     <EmbeddedResource Include="UserControl4.resx">
       <DependentUpon>UserControl4.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControl5.resx">
-      <DependentUpon>UserControl5.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="UserControl6.resx">
       <DependentUpon>UserControl6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="chart.resx">
+      <DependentUpon>chart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="genreorlocation.resx">
+      <DependentUpon>genreorlocation.cs</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="violationLayout.resx">
+      <DependentUpon>violationLayout.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -481,6 +677,33 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Screenshot 2024-01-03 20100i.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dropdownbutton-removebg-preview.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\info icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\warning-removebg-preview.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Screenshot_2024-01-22_160626-removebg-preview.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Screenshot_2024-01-22_162314-removebg-preview.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Screenshot_2024-01-22_163625-removebg-preview.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Screenshot_2024-01-24_122121-removebg-preview.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\edit-icon-256x256-x2dcymno.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Screenshot_2024-01-28_155125-removebg-preview.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

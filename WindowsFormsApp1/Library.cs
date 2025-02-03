@@ -50,12 +50,17 @@ namespace WindowsFormsApp1
         {
             clickedButton(sender, e);
             userControl11.BringToFront();
-           
+            userControl11.refreshAllControls(sender, e);
+            userControl21.clearControl();
+
+
         }
         private void button2_Click(object sender, EventArgs e)
         {
             clickedButton(sender, e);
+            userControl21.refreshControl();
             userControl21.BringToFront();
+            
         }
         private void button3_Click(object sender, EventArgs e)
         {
@@ -68,6 +73,7 @@ namespace WindowsFormsApp1
             }
 
             userControl31.BringToFront();
+            userControl21.clearControl();
 
         }
 
@@ -75,16 +81,24 @@ namespace WindowsFormsApp1
         {
             clickedButton(sender, e);
            userControl41.BringToFront();
+            userControl41.refreshAll();
+            userControl21.clearControl();
         }
         private void button5_Click(object sender, EventArgs e)
         {
             clickedButton(sender, e);
+            userControl51.borrowedBookUCRefresh();
             userControl51.BringToFront();
+            userControl21.clearControl();
         }
         private void button6_Click(object sender, EventArgs e)
         {
             clickedButton(sender, e);
-           userControl61.BringToFront();
+            userControl61.refreshAllControls();
+            userControl61.BringToFront();
+            userControl21.clearControl();
+
+
         }
         
         //Button style when clicked
@@ -138,10 +152,19 @@ namespace WindowsFormsApp1
 
         private void button8_Click(object sender, EventArgs e)
         {
-            Application.Restart();
-            Environment.Exit(0);
+            // Display a confirmation dialog
+            DialogResult result = MessageBox.Show("Are you sure you want to log out?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
+            // Check the user's choice
+            if (result == DialogResult.Yes)
+            {
+                // If the user clicks "Yes," restart the application
+                Application.Restart();
+                Environment.Exit(0);
+            }
+            // If the user clicks "No," do nothing
         }
+
 
         public void ShowUserControl1(string memberID)
         {
@@ -153,7 +176,30 @@ namespace WindowsFormsApp1
             
         }
 
+        private void button7_Click_1(object sender, EventArgs e)
+        {
+            OpenAddingForm();
+        }
+        bool isPopUpFormOpen = false;
+        private void OpenAddingForm()
+        {
+            if (!isPopUpFormOpen)
+            {
+                adminPage popUpForm = new adminPage();
+                this.FindForm().Enabled = false;
 
+                isPopUpFormOpen = true;
+
+                popUpForm.FormClosed += (s, args) =>
+                {
+                    this.FindForm().Enabled = true;
+                    isPopUpFormOpen = false;
+                    userControl21.refreshControl();
+                };
+
+                popUpForm.ShowDialog();
+            }
+        }
     }
 }
 

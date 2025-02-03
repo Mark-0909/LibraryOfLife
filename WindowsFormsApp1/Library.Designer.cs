@@ -29,6 +29,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Library));
             this.label2 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -39,6 +40,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.logOutbtn = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
             this.userControl11 = new WindowsFormsApp1.UserControl1();
             this.userControl21 = new WindowsFormsApp1.UserControl2();
             this.userControl31 = new WindowsFormsApp1.UserControl3();
@@ -182,18 +184,34 @@
             // logOutbtn
             // 
             this.logOutbtn.AllowDrop = true;
+            this.logOutbtn.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.logout3;
+            this.logOutbtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.logOutbtn.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.logOutbtn.FlatAppearance.BorderSize = 0;
             this.logOutbtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
             this.logOutbtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
             this.logOutbtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.logOutbtn.Image = global::WindowsFormsApp1.Properties.Resources.logout3;
-            this.logOutbtn.Location = new System.Drawing.Point(1210, 46);
+            this.logOutbtn.Location = new System.Drawing.Point(1253, 47);
             this.logOutbtn.Name = "logOutbtn";
-            this.logOutbtn.Size = new System.Drawing.Size(74, 72);
+            this.logOutbtn.Size = new System.Drawing.Size(62, 52);
             this.logOutbtn.TabIndex = 17;
             this.logOutbtn.UseVisualStyleBackColor = true;
             this.logOutbtn.Click += new System.EventHandler(this.button8_Click);
+            // 
+            // button7
+            // 
+            this.button7.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.profile_removebg_preview;
+            this.button7.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button7.FlatAppearance.BorderColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.button7.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.button7.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button7.Location = new System.Drawing.Point(1200, 47);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(56, 50);
+            this.button7.TabIndex = 19;
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click_1);
             // 
             // userControl11
             // 
@@ -223,7 +241,6 @@
             // userControl41
             // 
             this.userControl41.BackColor = System.Drawing.Color.White;
-            this.userControl41.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.userControl41.Location = new System.Drawing.Point(151, 158);
             this.userControl41.Name = "userControl41";
             this.userControl41.Size = new System.Drawing.Size(1133, 679);
@@ -231,18 +248,14 @@
             // 
             // userControl51
             // 
-            this.userControl51.BackColor = System.Drawing.Color.White;
-            this.userControl51.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.userControl51.ForeColor = System.Drawing.Color.White;
             this.userControl51.Location = new System.Drawing.Point(151, 158);
             this.userControl51.Name = "userControl51";
             this.userControl51.Size = new System.Drawing.Size(1133, 679);
-            this.userControl51.TabIndex = 12;
+            this.userControl51.TabIndex = 18;
             // 
             // userControl61
             // 
             this.userControl61.BackColor = System.Drawing.Color.White;
-            this.userControl61.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.userControl61.Location = new System.Drawing.Point(151, 158);
             this.userControl61.Name = "userControl61";
             this.userControl61.Size = new System.Drawing.Size(1133, 679);
@@ -256,6 +269,7 @@
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1461, 835);
+            this.Controls.Add(this.button7);
             this.Controls.Add(this.logOutbtn);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.button6);
@@ -272,9 +286,10 @@
             this.Controls.Add(this.userControl41);
             this.Controls.Add(this.userControl51);
             this.Controls.Add(this.userControl61);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Library";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Dashboard";
+            this.Text = "LIBRARY OF LIFE";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.trial_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -294,12 +309,13 @@
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Panel panel1;
         private UserControl6 userControl61;
-        private UserControl5 userControl51;
         private UserControl3 userControl31;
         private UserControl2 userControl21;
         private UserControl1 userControl11;
         private System.Windows.Forms.Button logOutbtn;
         private UserControl4 userControl41;
+        private UserControl5 userControl51;
+        private System.Windows.Forms.Button button7;
     }
 }
 

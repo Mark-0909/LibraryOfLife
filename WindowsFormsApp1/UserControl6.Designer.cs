@@ -31,8 +31,9 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.historyReturn1 = new WindowsFormsApp1.historyReturn();
+            this.historyMember1 = new WindowsFormsApp1.historyMember();
+            this.historyBook1 = new WindowsFormsApp1.historyBook();
             this.SuspendLayout();
             // 
             // button3
@@ -80,28 +81,26 @@
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button4
+            // historyReturn1
             // 
-            this.button4.BackColor = System.Drawing.Color.Green;
-            this.button4.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.14286F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.ForeColor = System.Drawing.Color.White;
-            this.button4.Location = new System.Drawing.Point(1781, 148);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(275, 80);
-            this.button4.TabIndex = 13;
-            this.button4.Text = "SEARCH";
-            this.button4.UseVisualStyleBackColor = false;
+            this.historyReturn1.Location = new System.Drawing.Point(3, 141);
+            this.historyReturn1.Name = "historyReturn1";
+            this.historyReturn1.Size = new System.Drawing.Size(2074, 1086);
+            this.historyReturn1.TabIndex = 8;
             // 
-            // textBox1
+            // historyMember1
             // 
-            this.textBox1.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(1442, 157);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(10);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(340, 59);
-            this.textBox1.TabIndex = 12;
+            this.historyMember1.Location = new System.Drawing.Point(3, 141);
+            this.historyMember1.Name = "historyMember1";
+            this.historyMember1.Size = new System.Drawing.Size(2076, 1086);
+            this.historyMember1.TabIndex = 7;
+            // 
+            // historyBook1
+            // 
+            this.historyBook1.Location = new System.Drawing.Point(3, 141);
+            this.historyBook1.Name = "historyBook1";
+            this.historyBook1.Size = new System.Drawing.Size(2076, 1086);
+            this.historyBook1.TabIndex = 6;
             // 
             // UserControl6
             // 
@@ -109,15 +108,15 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
+            this.Controls.Add(this.historyReturn1);
+            this.Controls.Add(this.historyMember1);
+            this.Controls.Add(this.historyBook1);
             this.Name = "UserControl6";
-            this.Size = new System.Drawing.Size(2080, 1170);
+            this.Size = new System.Drawing.Size(2080, 1230);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -126,7 +125,8 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.TextBox textBox1;
+        private historyBook historyBook1;
+        private historyMember historyMember1;
+        private historyReturn historyReturn1;
     }
 }

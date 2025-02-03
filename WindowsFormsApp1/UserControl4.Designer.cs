@@ -31,6 +31,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.memberlist1 = new WindowsFormsApp1.memberlist();
+            this.memberBannedList1 = new WindowsFormsApp1.memberBannedList();
             this.SuspendLayout();
             // 
             // button1
@@ -65,21 +66,30 @@
             // 
             // memberlist1
             // 
-            this.memberlist1.Location = new System.Drawing.Point(0, 130);
+            this.memberlist1.Location = new System.Drawing.Point(3, 141);
             this.memberlist1.Name = "memberlist1";
-            this.memberlist1.Size = new System.Drawing.Size(2074, 1104);
+            this.memberlist1.Size = new System.Drawing.Size(2074, 1093);
             this.memberlist1.TabIndex = 2;
+            // 
+            // memberBannedList1
+            // 
+            this.memberBannedList1.Location = new System.Drawing.Point(3, 141);
+            this.memberBannedList1.Name = "memberBannedList1";
+            this.memberBannedList1.Size = new System.Drawing.Size(2074, 1093);
+            this.memberBannedList1.TabIndex = 3;
             // 
             // UserControl4
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.Controls.Add(this.memberlist1);
+            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
+            this.Controls.Add(this.memberlist1);
+            this.Controls.Add(this.memberBannedList1);
             this.Name = "UserControl4";
-            this.Size = new System.Drawing.Size(2080, 1250);
+            this.Size = new System.Drawing.Size(2078, 1248);
             this.Load += new System.EventHandler(this.UserControl4_Load);
             this.ResumeLayout(false);
 
@@ -90,5 +100,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private memberlist memberlist1;
+        private memberBannedList memberBannedList1;
     }
 }

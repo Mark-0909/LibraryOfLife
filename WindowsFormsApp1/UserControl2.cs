@@ -61,5 +61,13 @@ namespace WindowsFormsApp1
         {
             
         }
+        public void refreshControl()
+        {
+            booklist1.refreshBooks();
+        }
+        public void clearControl()
+        {
+            booklist1.clearBookIfNotneeded();
+        }
     }
 }

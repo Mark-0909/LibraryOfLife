@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Threading;
+
 using System.Windows.Forms;
-using System.Data.SqlClient;
+
 using MySql.Data.MySqlClient;
 
-// ... (Your using directives and namespace declaration remain unchanged)
+
 
 namespace WindowsFormsApp1
 {
@@ -21,6 +21,10 @@ namespace WindowsFormsApp1
         }
 
         private void button1_Click_1(object sender, EventArgs e)
+        {
+            login();
+        }
+        public void login()
         {
             string username = textBox1.Text;
             string password = textBox2.Text;
@@ -59,7 +63,6 @@ namespace WindowsFormsApp1
                 }
             }
         }
-
         private void label3_Click(object sender, EventArgs e)
         {
             // Additional actions for the "Forgot Password" link
@@ -78,6 +81,25 @@ namespace WindowsFormsApp1
         private void textBox1_TextChanged_1(object sender, EventArgs e)
         {
             // Additional actions when the username textbox changes
+        }
+
+        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Tab)
+            {
+                textBox2.Focus();
+            } else if (e.KeyCode == Keys.Enter)
+            {
+                login();
+            }
+        }
+
+        private void textBox2_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+                login();
+            }
         }
     }
 }

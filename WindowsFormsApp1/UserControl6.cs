@@ -20,16 +20,19 @@ namespace WindowsFormsApp1
         private void button3_Click(object sender, EventArgs e)
         {
             clickedButton(sender, e);
+            historyBook1.BringToFront();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             clickedButton(sender, e);
+            historyMember1.BringToFront();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             clickedButton(sender, e);
+            historyReturn1.BringToFront();
         }
         private void ApplyButtonStyle(Button button)
         {
@@ -70,6 +73,12 @@ namespace WindowsFormsApp1
                     }
                 }
             }
+        }
+        public void refreshAllControls() 
+        {
+            historyMember1.refreshControl();
+            historyReturn1.refreshControl();
+            historyBook1.refreshControl();
         }
     }
 }
